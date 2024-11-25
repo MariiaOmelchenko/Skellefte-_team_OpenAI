@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expertfrågor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Ställ en fråga till en expert!</h1>
+  </header>
+  <main>
+    <form id="question-form">
+      <label for="expert-area">Välj expertområde:</label>
+      <select id="expert-area" name="expert-area">
+        <option value="shellscript">Shellscript</option>
+        <option value="grafikkort">Grafikkort</option>
+        <option value="ciscoroutrar">Ciscoroutrar</option>
+      </select>
+      <label for="question">Ställ din fråga:</label>
+      <textarea id="question" name="question"></textarea>
+      <button id="submit-button">Skicka fråga</button>
+    </form>
+    <div id="answer-container"></div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
