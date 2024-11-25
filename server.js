@@ -1,40 +1,44 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
-const port = 3000;
+const port = 3005;
 
-// Middleware för att hantera JSON-data
+// Middleware to handle JSON data
 app.use(express.json());
 
-// Endpoint för frågor
-app.post('/api/question', (req, res) => {
+// Enable CORS with specific options
+app.use(cors());
+
+// Endpoint for questions
+app.post('/question', (req, res) => {
     const { expertArea, question } = req.body;
 
-    // Kontrollera att data finns
+    // Check that data exists
     if (!expertArea || !question) {
-        return res.status(400).json({ error: "Vänligen ange både expertområde och fråga." });
+        return res.status(400).json({ error: "Please provide both expert area and question." });
     }
 
-    // Hårdkodade svar baserat på expertområde
+    // Hardcoded answers based on expert area
     let answer = "";
     switch (expertArea.toLowerCase()) {
         case "shellscript":
-            answer = "För att felsöka ditt shellscript, använd kommandot `set -x`.";
+            answer = "To debug your shell script, use the command `set -x`.";
             break;
         case "grafikkort":
-            answer = "För att förbättra ditt grafikkorts prestanda, uppdatera drivrutinerna.";
+            answer = "To improve your graphics card performance, update the drivers.";
             break;
         case "ciscoroutrar":
-            answer = "Använd kommandot `show running-config` för att se aktuell routerkonfiguration.";
+            answer = "Use the command `show running-config` to see the current router configuration.";
             break;
         default:
-            answer = "Jag är tyvärr inte bekant med det expertområdet.";
+            answer = "I'm not familiar with that expert area.";
     }
 
-    // Returnera svaret
+    // Return the answer
     res.json({ answer });
 });
 
-// Starta servern
+// Start the server
 app.listen(port, () => {
-    console.log(`Server körs på http://localhost:${port}`);
+    console.log(`Server running at http://localhost:${port}`);
 });

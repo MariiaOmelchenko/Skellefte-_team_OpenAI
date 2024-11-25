@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "skellefte-_team_openai",
+  "description": "Pontus, Mariia, Faisal",
+  "version": "1.0.0",
+  "main": "script.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MariiaOmelchenko/Skellefte-_team_OpenAI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MariiaOmelchenko/Skellefte-_team_OpenAI/issues"
+  },
+  "homepage": "https://github.com/MariiaOmelchenko/Skellefte-_team_OpenAI#readme"
+}
