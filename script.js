@@ -5,7 +5,7 @@ document.getElementById("question-form").addEventListener('submit', async functi
     const question = document.getElementById("question").value;
 
     try {
-        const response = await fetch('/question', {
+        const response = await fetch('http://localhost:3000/question', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ document.getElementById("question-form").addEventListener('submit', async functi
         }
 
         const data = await response.json();
-        console.log(data);
+        console.log(data.answer);
 
         document.getElementById("answer-container").textContent = data.answer || 'Sorry, I do not know the answer to that question.';
     } catch (error) {

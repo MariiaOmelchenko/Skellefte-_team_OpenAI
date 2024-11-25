@@ -1,9 +1,13 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
 // Middleware to handle JSON data
 app.use(express.json());
+
+// Enable CORS with specific options
+app.use(cors());
 
 // Endpoint for questions
 app.post('/question', (req, res) => {
