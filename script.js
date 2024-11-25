@@ -5,7 +5,7 @@ document.getElementById("question-form").addEventListener('submit', async functi
     const question = document.getElementById("question").value;
 
     try {
-        const response = await fetch('http://localhost:3000/question', {
+        const response = await fetch('http://localhost:3005/question', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
