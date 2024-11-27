@@ -1,7 +1,17 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
+const { Configuration, OpenAIApi } = require('openai');
+
 const app = express();
 const port = 3005;
+
+// OpenAI API configuration
+const configuration = new Configuration({
+    apiKey: process.env.OPENAI_API_KEY, // Hämta API-nyckeln från .env
+});
+const openai = new OpenAIApi(configuration); // Skapa en instans av OpenAIApi
 
 // Middleware to handle JSON data
 app.use(express.json());
@@ -10,7 +20,7 @@ app.use(express.json());
 app.use(cors());
 
 // Endpoint for questions
-app.post('/question', (req, res) => {
+app.post('/question', async (req, res) => {
     const { expertArea, question } = req.body;
 
     // Check that data exists
@@ -18,24 +28,28 @@ app.post('/question', (req, res) => {
         return res.status(400).json({ error: "Please provide both expert area and question." });
     }
 
-    // Hardcoded answers based on expert area
-    let answer = "";
-    switch (expertArea.toLowerCase()) {
-        case "shellscript":
-            answer = "To debug your shell script, use the command `set -x`.";
-            break;
-        case "grafikkort":
-            answer = "To improve your graphics card performance, update the drivers.";
-            break;
-        case "ciscoroutrar":
-            answer = "Use the command `show running-config` to see the current router configuration.";
-            break;
-        default:
-            answer = "I'm not familiar with that expert area.";
-    }
+    try {
+        // Generate answer using OpenAI
+        const prompt = `You are an expert in ${expertArea}. Please answer the following question: ${question}`;
+        const response = await openai.createCompletion({
+            model: 'text-davinci-003', // OpenAI model
+            prompt: prompt,
+            max_tokens: 100,
+            temperature: 0.7, // Controls randomness
+        });
 
-    // Return the answer
-    res.json({ answer });
+        // Extract the answer from the response
+        const answer = response.data.choices[0].text.trim();
+        res.json({ answer });
+    } catch (error) {
+        console.error("Error with OpenAI API:", error.message);
+        res.status(500).json({ error: "An error occurred while processing your request." });
+    }
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
 });
 
 // Start the server
