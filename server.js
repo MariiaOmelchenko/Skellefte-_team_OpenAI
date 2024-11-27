@@ -9,9 +9,10 @@ const port = 3005;
 
 // OpenAI API configuration
 const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY, // Hämta API-nyckeln från .env
+    apiKey: process.env.OPENAI_API_KEY, // Din OpenAI API-nyckel från .env-filen
 });
-const openai = new OpenAIApi(configuration); // Skapa en instans av OpenAIApi
+
+const openai = new OpenAIApi(configuration);
 
 // Middleware to handle JSON data
 app.use(express.json());
@@ -23,22 +24,22 @@ app.use(cors());
 app.post('/question', async (req, res) => {
     const { expertArea, question } = req.body;
 
-    // Check that data exists
+    // Kontrollera att båda fälten finns
     if (!expertArea || !question) {
         return res.status(400).json({ error: "Please provide both expert area and question." });
     }
 
     try {
-        // Generate answer using OpenAI
+        // Bygg prompt och gör API-anrop
         const prompt = `You are an expert in ${expertArea}. Please answer the following question: ${question}`;
         const response = await openai.createCompletion({
-            model: 'text-davinci-003', // OpenAI model
+            model: 'text-davinci-003', // Ange OpenAI-modellen
             prompt: prompt,
             max_tokens: 100,
-            temperature: 0.7, // Controls randomness
+            temperature: 0.7, // Kontroll av slumpmässighet
         });
 
-        // Extract the answer from the response
+        // Extrahera svaret från API-responsen
         const answer = response.data.choices[0].text.trim();
         res.json({ answer });
     } catch (error) {
@@ -47,12 +48,7 @@ app.post('/question', async (req, res) => {
     }
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
-
-// Start the server
+// Starta servern
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });

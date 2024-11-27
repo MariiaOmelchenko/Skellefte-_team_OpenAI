@@ -12,18 +12,15 @@ Steg-för-steg:
 Klona detta repo:
 
 bash
-Copy code
-git clone <repo-url>
+
+git clone (https://github.com/MariiaOmelchenko/Skellefte-_team_OpenAI.git)
 cd ai-question-server
 Installera nödvändiga beroenden:
 
-bash
-Copy code
 npm install
 Starta servern:
 
-bash
-Copy code
+
 node server.js
 Öppna webbsidan:
 
@@ -75,8 +72,7 @@ Copy code
 }
 Svar (exempel):
 
-json
-Copy code
+
 {
     "answer": "För att felsöka ditt shellscript, använd kommandot `set -x`."
 }
